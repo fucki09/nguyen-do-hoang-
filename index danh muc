@@ -1,0 +1,111 @@
+@model IEnumerable<Phuc_G3_webbanhang.Models.Category>
+
+@{
+    ViewData["Title"] = "Danh mục điện thoại";
+}
+
+<!-- CellphoneS Style -->
+<style>
+    body {
+        background-color: #f9f9f9;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .cell-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #d70018; /* đỏ đặc trưng của CellphoneS */
+        margin-bottom: 20px;
+    }
+
+    .btn-cell {
+        background-color: #d70018;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-cell:hover {
+            background-color: #b40014;
+        }
+
+    .table thead {
+        background-color: #d70018;
+        color: white;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .btn-action {
+        margin-right: 6px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .btn-edit {
+        color: #ffc107;
+    }
+
+    .btn-delete {
+        color: #dc3545;
+    }
+
+    .btn-edit:hover {
+        color: #d39e00;
+    }
+
+    .btn-delete:hover {
+        color: #bd2130;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="cell-title">📂 Danh mục sản phẩm</h2>
+        <a asp-action="Add" class="btn btn-cell">
+            <i class="bi bi-plus-circle"></i> Thêm danh mục
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover mt-3">
+        <thead>
+            <tr>
+                <th style="width: 75%;">Tên danh mục</th>
+                <th style="width: 25%;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="2" class="text-center text-muted py-3">Chưa có danh mục nào.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@category.Id" class="btn-action btn-edit">
+                                <i class="bi bi-pencil"></i> Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@category.Id" class="btn-action btn-delete"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?');">
+                                <i class="bi bi-trash"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
